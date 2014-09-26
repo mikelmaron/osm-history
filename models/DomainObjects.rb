@@ -8,6 +8,14 @@ class OSMObject
 
 	attr_reader :id, :user_id, :user_name, :created_at
 
+	include Mongoid::Document
+
+	field :id, 			type: String
+	field :user_id, 	type: String
+	field :user_name, 	type: String
+	field :created_at, 	type: Date
+	field :tags, 		type: Hash
+
 	def initialize(args)
 		@id         ||= args["id"]
 		@user_id    ||= args["user_id"]
