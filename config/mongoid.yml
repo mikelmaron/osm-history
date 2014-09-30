@@ -1,0 +1,6 @@
+development:
+  sessions:
+    default:
+      database: haiti
+      hosts:
+        - epic-analytics.cs.colorado.edu:27017

@@ -6,6 +6,9 @@
 
 class OSMObject
 
+	require 'mongoid'
+	require 'date'
+
 	attr_reader :id, :user_id, :user_name, :created_at
 
 	include Mongoid::Document
@@ -13,7 +16,7 @@ class OSMObject
 	field :id, 			type: String
 	field :user_id, 	type: String
 	field :user_name, 	type: String
-	field :created_at, 	type: Date
+	#field :created_at, 	type: Date
 	field :tags, 		type: Hash
 
 	def initialize(args)
@@ -34,6 +37,9 @@ end
 class Node < OSMObject
 
 	attr_reader :lat, :lon
+
+	field :lon, 		type: Float
+	field :lat, 		type: Float
 
 	def post_initialize(args)  # Should this be post_initialize? What's the 
 
