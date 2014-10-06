@@ -2,7 +2,7 @@
 # Query Class: 
 #
 # 1. Handles DB Connection ?
-# 2. 
+# 2. Superclass Query handles bounding box & default setup, subclasses define specific queries
 #
 
 class Query
@@ -19,6 +19,8 @@ class Query
 		@constraints     = args[:constraints] || {}
 
 		@selector = {}
+
+		query_items = []
 
 		post_initialize(args)
 	end
@@ -55,13 +57,11 @@ class Node_Query < Query
 
 		results = database["nodes"].find( selector, {:limit=> 10000000} )
 
-		nodes = []
-
 		results.each do |node|
-			nodes << Node.new(node) #When should it become a node object?
+			query_items << Node.new(node) #When should it become a node object?
 		end
 
-		Nodes.new(items: nodes)
+		Nodes.new(items: query_items)
 	end
 end
 
@@ -76,13 +76,11 @@ class Changeset_Query < Query
 
 		results = database["changesets"].find( selector, {:limit=> 10000000} )
 
-		changesets = []
-
 		results.each do |changeset|
-			changesets << Changeset.new(changeset) #When should it become a node object?
+			query_items << Changeset.new(changeset) #When should it become a node object?
 		end
 
-		Changesets.new(items: changesets)
+		Changesets.new(items: query_items)
 	end
 end
 
@@ -107,13 +105,12 @@ class User_Query < Query
 	def run
 		results = database["users"].find( selector )
 
-		users = []
-
+	
 		results.each do |user|
 			users << User.new(user) #When should it become a node object?
 		end
 
-		Users.new(items: users)
+		Users.new(items: query_items)
 	end
 end
 
