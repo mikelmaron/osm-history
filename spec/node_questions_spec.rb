@@ -11,7 +11,7 @@ describe Query do
 
   	it "Can count the number of nodes edited in a given analysis window" do 
   		
-  		time_frame = TimeFrame.new( start: Time.new(2010,1,12), end: Time.new(2010,2,12) )
+  		time_frame = TimeFrame.new( start: Time.new(2009,1,12), end: Time.new(2009,2,12) )
 		bounding_box = BoundingBox.new nil
 
 		this_analysis_window = AnalysisWindow.new(time_frame: time_frame, bounding_box: bounding_box)
@@ -22,7 +22,7 @@ describe Query do
 
   	it "Can count the number of nodes added in a given analysis window" do 
   		
-  		time_frame = TimeFrame.new( start: Time.new(2010,1,12), end: Time.new(2010,2,12) )
+  		time_frame = TimeFrame.new( start: Time.new(2009,1,12), end: Time.new(2009,2,12) )
 		bounding_box = BoundingBox.new nil
 
 		this_analysis_window = AnalysisWindow.new(time_frame: time_frame, bounding_box: bounding_box)

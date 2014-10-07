@@ -10,7 +10,7 @@ brew install protobuf-c (Mac)
 gem install pbf_parser
 '''
 
-require_relative 'OSMGeoJSONMongo'
+require 'mongo_mapper'
 
 if __FILE__==$0
 	#This isn't the most robust command line parser, but it works.
@@ -57,17 +57,16 @@ if __FILE__==$0
 		puts "port: #{port}"
 
 		#Create connection to Mongo
-		osm_driver = OSMHistoryAnalysis.new(:local)
-		mongo_db = osm_driver.connect_to_mongo(db=db, coll=nil, host=host, port=port)
+		MongoMapper.connection = Mongo::Connection.new# (Local)
+		MongoMapper.database = 'haiti'
 		
-		conn = OSMGeoJSONMongo.new(mongo_db)
+		conn = OSMGeoJSONMongoMapper.new
 		conn.open_parser(file)
 
 		puts "Information about your file"
 		conn.file_stats
 
-
-		#Commenting out the actual import to just get file stats
+		# Commenting out the actual import to just get file stats
 		# puts "Beginning Mongo Import"
 		# conn.read_pbf_to_mongo(lim=limit, [:ways, :relations])
 	end

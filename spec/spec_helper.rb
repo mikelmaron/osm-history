@@ -4,7 +4,23 @@
 #
 #
 require 'mongo'
+require 'mongo_mapper'
 
+#Imports
+require_relative '../import_scripts/pbf_to_mongomapper'
+
+
+#Queries
+require_relative '../models/Query'
+require_relative '../models/AnalysisWindow'
+require_relative '../models/DomainObjects'
+
+
+
+MongoMapper.connection = Mongo::Connection.new# (Local)
+MongoMapper.database = 'haiti_test'
+
+#Deprecated
 def build_database
 
 	require_relative '../models/DomainObjects'
