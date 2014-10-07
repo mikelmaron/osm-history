@@ -13,7 +13,7 @@ gem install pbf_parser
 '''
 
 require 'pp'
-require 'time'
+require 'date'
 require 'mongo_mapper'
 
 
@@ -63,16 +63,24 @@ class OSMPBF
 		puts "Nodes: #{n_count}, Ways: #{w_count}, Relations: #{r_count}"
 	end
 
-
-	def add_node(node)
-		node[:created_at] = Time.at(node[:timestamp]/1000).utc
-		Node.create!(node)
+	def timestamp_to_date(timestamp)
+		Time.at(timestamp/1000).utc #This is a time instance, it should go straight ot ruby
 	end
 
 
+	def add_node(node)
+		node[:created_at] = timestamp_to_date(node[:timestamp])
+		this_node = Node.new(node)
+
+		puts this_node.inspect
+
+		this_node.save
+	end
+
+	
 
 	def add_way(way)
-		way[:created_at] = Time.at(way[:timestamp]/1000).utc
+		way[:created_at] = timestamp_to_date(way[:timestamp])
 		way[:nodes] = way[:refs]
 		Way.create!(way)
 	end
@@ -80,7 +88,7 @@ class OSMPBF
 
 
 	def add_relation(relation)
-		relation[:created_at] = Time.at(relation[:timestamp]/1000).utc
+		relation[:created_at] = timestamp_to_date(relation[:timestamp])
 		Relation.create!(relation)
 	end
 

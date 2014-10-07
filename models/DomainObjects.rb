@@ -6,14 +6,13 @@
 require 'mongo_mapper'
 
 
-
 class Node
 	include MongoMapper::Document
 
 	#OSMObjects
 	key :user_id, 	String
 	key :user_name, String
-	key :created_at,Date
+	key :created_at,Time
 	key :version, 	Integer
 	key :tags,		Hash
 
@@ -22,6 +21,7 @@ class Node
 	key :lat,		Float
 	key :lon,		Float
 	key :changeset, String
+	key :geometry,	Hash
 
 	def initialize(args)
 		#OSMObject Items
@@ -29,11 +29,14 @@ class Node
 		@user_name  = args[:user]
 		@created_at = args[:created_at]
 		@tags       = args[:tags]
+		@version    = args[:version]
 
 		@node_id    = args[:id].to_s
 		@lon 		= args[:lon]
 		@lat 		= args[:lat]
 		@changeset  = args[:changeset].to_s
+
+		@geometry   = {type: "Point", coordinates: [lon,lat]}
 	end
 end
 
@@ -47,7 +50,7 @@ class Way
 	#OSMObjects
 	key :user_id, 	String
 	key :user_name, String
-	key :created_at,Date
+	key :created_at,Time
 	key :version, 	Integer
 	key :tags,		Hash
 
@@ -62,6 +65,7 @@ class Way
 		@user_name  = args[:user]
 		@created_at = args[:created_at]
 		@tags       = args[:tags]
+		@version    = args[:version]
 
 		@way_id     = args[:id].to_s
 		@nodes 		= args[:nodes].collect{|node| node.to_s}
@@ -75,7 +79,7 @@ class Relation
 	#OSMObjects
 	key :user_id, 	String
 	key :user_name, String
-	key :created_at,Date
+	key :created_at,Time
 	key :version, 	Integer
 	key :tags,		Hash
 
@@ -91,6 +95,7 @@ class Relation
 		@user_name  = args[:user]
 		@created_at = args[:created_at]
 		@tags       = args[:tags]
+		@version    = args[:version]
 
 		@relation_id=args[:id].to_s
 		@nodes = args[:members][:nodes].collect{|node| node.to_s}
@@ -109,7 +114,7 @@ class Changeset
 	#OSMObjects
 	key :user_id, 	String
 	key :user_name, String
-	key :created_at,Date
+	key :created_at,Time
 	key :version, 	Integer
 	key :tags,		Hash
 
@@ -143,7 +148,7 @@ class User # => Do we inherit anything here? No... ?  #More to learn here, proba
 
 	key :user_name, 	String
 	key :user_id,		String
-	key :join_date,		Date
+	key :join_date,		Time
 	key :image_url,		String
 
 	def initialize(args)

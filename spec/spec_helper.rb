@@ -18,7 +18,7 @@ require_relative '../models/DomainObjects'
 
 
 MongoMapper.connection = Mongo::Connection.new# (Local)
-MongoMapper.database = 'haiti_test'
+MongoMapper.database = 'osm_test_db'
 
 #Deprecated
 def build_database
