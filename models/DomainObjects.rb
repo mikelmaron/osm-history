@@ -5,7 +5,6 @@
 
 require 'mongo_mapper'
 
-
 class Node
 	include MongoMapper::Document
 
