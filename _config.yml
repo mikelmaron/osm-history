@@ -1,13 +1,13 @@
-# Site settings
-title: OSM History
-description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "/osm-history" # the subpath of your site, e.g. /blog/
-url: "mikelmaron.github.io" # the base hostname & protocol for your site
-twitter_username: mikel
-github_username:  mikelmaron
-
-# Build settings
-markdown: kramdown
+title: Test User 
+email: test_user@osm-history2.com 
+pbf_file: nepal.osh.pbf 
+database: osm-test 
+bbox: 85.0826,27.6125,85.1605,27.6802 
+start_date: 2014-11-01 
+end_date: 2014-12-31 
+write_directory: sample_projects/sample_project 
+Node Questions: ["total_nodes_edited", "number_of_new_nodes", "number_of_nodes_edited_by_new_mappers", "number_of_nodes_edited_by_experienced_mappers", "mean_nodes_per_mapper", "median_nodes_per_mapper", "nodes_x_day"] 
+Changeset Questions: ["total_changesets_created", "mean_changesets_per_mapper", "median_changesets_per_mapper", "number_of_changesets_by_new_mappers", "number_of_changesets_by_experienced_mappers", "average_changeset_area", "average_changeset_node_density", "median_changeset_node_density", "average overlaps_per_changeset"] 
+User Questions: ["user_list"] 
+Multi User Questions: ["user_list_with_geometry"] 
+Bbox Questions: ["bbox_geojson_geometry"] 
