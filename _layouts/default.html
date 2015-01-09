@@ -13,7 +13,7 @@
 
         Study Area:
         <div id="map" style="width: 600px; height: 400px"></div>
-        <script src="/assets/js/locator-map.js"></script>       
+        <script src="{{site.baseurl}}/assets/js/locator-map.js"></script>       
 
         <h2>Node Questions</h2>  
         Total Nodes Added During Time Period: {{ site.data.node_added_count['node_added_count'] }}  <br />
@@ -23,7 +23,7 @@
         Mean Nodes per Mapper: {{ site.data.mean_nodes_per_mapper['Mean Nodes per Mapper'] }} <br />
         Median Nodes per Mapper: {{ site.data.median_nodes_per_mapper['Median Nodes per Mapper'] }} <br />
         Nodes Edited Per Day:
-        <div class="nodes-per-day"><script src="/assets/js/nodesperday.js"></script></div>
+        <div class="nodes-per-day"><script src="{{site.baseurl}}/assets/js/nodesperday.js"></script></div>
 
         <h2>Changeset Questions</h2>
         Total Changesets Created: {{ site.data.total_changesets_created['Number of Changesets'] }} <br />

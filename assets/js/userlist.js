@@ -1,3 +1,5 @@
+---
+---
 (function(){
 	function turf_line_distance(feature) {
 		if (feature.geometry.type != "LineString") { return ""; }
@@ -12,7 +14,7 @@
 		
   }
 
-	d3.json("/json/user_list.json", function(error, data) {
+	d3.json("{{site.baseurl}}/json/user_list.json", function(error, data) {
 		d3.select("#users").selectAll("li").data(data).enter().append("li")
 			.text(function(d) { return d.user; })
 			.on("click", function(d) {
@@ -24,7 +26,7 @@
 							{"label": "Relations", "count": d.relations}, 
 							{"label": "Changesets", "count": d.changesets}]).enter().append("span").text(function(d) { return d.label + ": " + d.count.toString() + "<br/>"; });
 */
-				d3.json('/json/user_list_with_geometry/' + d.user + '.json', function(error, data) {
+				d3.json('{{site.baseurl}}/json/user_list_with_geometry/' + d.user + '.json', function(error, data) {
 					if (typeof geojsonLayer != "undefined") { geojsonLayer.clearLayers(); }
 
 					var myStyle = { "color": "#ff0000" };

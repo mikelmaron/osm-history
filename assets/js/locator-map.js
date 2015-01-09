@@ -8,8 +8,11 @@ var map = L.map('map').setView([51.505, -0.09], 13);
         'Imagery © <a href="http://mapbox.com">Mapbox</a>',
             id: 'examples.map-i875mjb7'
         }).addTo(map);
-        var bbox = {{ site.data.bbox_geojson_geometry | jsonify }};
-        L.geoJson(bbox).addTo(map);
-        var bounds = L.geoJson(bbox).getBounds();
-        map.fitBounds(bounds);
+
+d3.json("{{site.baseurl}}/json/bbox_geojson_geometry.json", function(error, data) {
+	L.geoJson(data).addTo(map);
+	var bounds = L.geoJson(data).getBounds();
+	map.fitBounds(bounds);
+});
+
 var geojsonLayer;

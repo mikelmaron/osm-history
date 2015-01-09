@@ -11,3 +11,4 @@ Changeset Questions: ["total_changesets_created", "mean_changesets_per_mapper", 
 User Questions: ["user_list"] 
 Multi User Questions: ["user_list_with_geometry"] 
 Bbox Questions: ["bbox_geojson_geometry"] 
+baseurl: /osm-history/
