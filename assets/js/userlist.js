@@ -16,7 +16,7 @@
 
 	d3.json("{{site.baseurl}}/json/user_list.json", function(error, data) {
 		d3.select("#users").selectAll("li").data(data).enter().append("li")
-			.text(function(d) { return d.user; })
+			.text(function(d) { return d.user + " "; })
 			.on("click", function(d) {
 
 				document.getElementById("user-counts").innerHTML = "<b>" + d.user + "</b> Nodes: " + d.nodes + ", Ways: " + d.ways + ", Relations: " + d.relations + ", Changesets: " + d.changesets;
