@@ -105,7 +105,12 @@ class AnalysisWindowImport
 	#Runs a system shell script to call osm-meta-util
 	def run_live_replication_import
 		begin
-		  system "#{global_config['osm-meta-util']} \"" + config['changeset_tags'] + "\" &"
+      if config['changeset_tags_collection']
+        tags_arg = "--tags_collection " + config['changeset_tags_collection']
+      else
+        tags_arg = "\"" + config['changeset_tags'] + "\""
+      end
+		  system "#{global_config['osm-meta-util']} --db " + config['database'] + " " + tags_arg + " &"
 		rescue
 			raise Error.new("osm-meta-util failed")
 			puts $!

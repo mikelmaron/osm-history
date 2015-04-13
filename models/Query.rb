@@ -144,7 +144,14 @@ class User_Query < Query
 	end
 end
 
-
-
-
+class ChangesetTags_Query < Query
+  def run(args={})
+    tags = []
+    results = DatabaseConnection.database[ analysis_window[:changeset_tags_collection] ].find( {} )
+    results.each do |result|
+      tags << result.tag
+    end
+    tags
+  end
+end
 

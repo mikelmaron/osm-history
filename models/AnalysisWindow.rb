@@ -25,6 +25,9 @@ class AnalysisWindow
 	attr_reader :max_area
 
 	attr_reader :changeset_tags
+
+  attr_reader :changeset_tags_collection
+
 	# Can pass in an instance of a timeframe and bounding box, or use defaults
 	def initialize(args={})
 		@bounding_box = args[:bounding_box] || BoundingBox.new
@@ -33,7 +36,16 @@ class AnalysisWindow
 		@max_area = args[:max_area] || 1000000000000
 		@min_area = args[:min_area] || 1
 
-		@changeset_tags = args[:changeset_tags]
+		@changeset_tags_collection = args[:changeset_tags_collection]
+    if @changeset_tags_collection
+      @changeset_tags = ChangesetTags_Query.new(analysis_window: self)
+      puts @changeset_tags
+    else
+  		@changeset_tags = args[:changeset_tags]
+    end
+
+    #grab changeset_tags from db if q_collection is set
+
 		post_initialize
 	end
 

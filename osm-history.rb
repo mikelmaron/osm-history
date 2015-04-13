@@ -47,7 +47,8 @@ class OSMHistory
 						bounding_box: BoundingBox.new(bbox: aw_config['bbox']),
 						min_area: aw_config['min_area'],
 						max_area: aw_config['max_area'],
-						changeset_tags: aw_config['changeset_tags']
+						changeset_tags: aw_config['changeset_tags'],
+            changeset_tags_collection: aw_config['changeset_tags_collection']
 		)
 	end
 
@@ -72,13 +73,13 @@ class OSMHistory
 		end
 	end
 
-	def run_way_questions
-		way_questions = Questions::Ways.new(analysis_window: analysis_window)
-
-		aw_config['Way Questions'].each do |way_q|
-			write_json( data: way_questions.run(way_q), name: "#{way_q}.json")
-		end
-	end
+#	def run_way_questions
+#		way_questions = Questions::Ways.new(analysis_window: analysis_window)
+#
+#		aw_config['Way Questions'].each do |way_q|
+#			write_json( data: way_questions.run(way_q), name: "#{way_q}.json")
+#		end
+#	end
 
 	def run_changeset_questions
 		unless aw_config['Changeset Questions'].nil?
