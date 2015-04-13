@@ -38,8 +38,7 @@ class AnalysisWindow
 
 		@changeset_tags_collection = args[:changeset_tags_collection]
     if @changeset_tags_collection
-      @changeset_tags = ChangesetTags_Query.new(analysis_window: self)
-      puts @changeset_tags
+      @changeset_tags = ChangesetTags_Query.new(analysis_window: self).run
     else
   		@changeset_tags = args[:changeset_tags]
     end
