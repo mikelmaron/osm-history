@@ -7,6 +7,7 @@ require_relative 'osm_api/import_changesets'
 require_relative 'osm_api/import_nodeways'
 require_relative 'osm_api/import_users'
 require_relative 'osm_api/import_notes'
+require_relative 'osm_api/import_osmtm_tags'
 require_relative 'osm_api/osm_api'
 require_relative 'pbf_to_mongo'
 
@@ -96,6 +97,11 @@ class AnalysisWindowImport
     #puts nodeways_import.new_changeset_ids
   end
 
+  def osmtm_tags_import
+    osmtm_tags_import = OSMTMTagsImport.new
+    osmtm_tags_import.import_osmtm_tags
+  end
+
 	def user_import
 		user_import = UserImport.new
 		puts "Importing user data for #{user_import.distinct_uids.length} users"
@@ -106,7 +112,7 @@ class AnalysisWindowImport
 	def run_live_replication_import
 		begin
       if config['changeset_tags_collection']
-        tags_arg = "--tags_collection " + config['changeset_tags_collection']
+        tags_arg = "--tags_collection changeset_tags "
       else
         tags_arg = "\"" + config['changeset_tags'] + "\""
       end

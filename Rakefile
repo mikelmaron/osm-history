@@ -79,6 +79,10 @@ namespace :import do
 		window.note_import
 	end
 
+  desc "Import OSMTM Tags"
+  task :osmtm_tags do
+    window.osmtm_tags_import
+  end
 end
 
 desc "Clean up all temp files"

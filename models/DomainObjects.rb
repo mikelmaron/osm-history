@@ -150,3 +150,16 @@ class Note #:nodoc:
 	end
 
 end
+
+class ChangesetTags #:nodoc:
+
+	include OSMongoable::ChangesetTags
+
+	attr_reader :tag, :name
+
+	def initialize(args)	
+		@tag = args[:tag] 		  	
+		@name = args[:name] 		 	
+	end
+
+end

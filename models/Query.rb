@@ -147,7 +147,7 @@ end
 class ChangesetTags_Query < Query
   def run(args={})
     tags = []
-    results = DatabaseConnection.database[ analysis_window.changeset_tags_collection ].find( {} )
+    results = DatabaseConnection.database['changeset_tags'].find( {:status => 1} )
     results.each do |result|
       tags << result['tag']
     end

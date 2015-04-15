@@ -250,6 +250,27 @@ module OSMongoable
 
 		def save!
   			DatabaseConnection.database['changesets'].insert( self.to_mongo )
-  		end
-  	end
+    end
+  end
+
+	module ChangesetTags # :nodoc: all
+		def to_mongo
+			hash = {}
+			hash[:tag]  = tag
+			hash[:name] = name
+      hash[:status] = 0 # new documents are flagged, for atomicity of update
+			hash
+		end
+
+		def save!
+			DatabaseConnection.database['changeset_tags'].insert( self.to_mongo )
+		end
+
+
+    def atomic_update
+      DatabaseConnection.database['changeset_tags'].update({},{:$inc => {:status => 1}}, {:$isolated =>  1, :multi => true})
+      DatabaseConnection.database['changeset_tags'].remove({:status => {:$gt => 1}})
+    end
+
+	end
 end
