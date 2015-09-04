@@ -106,7 +106,7 @@ class OSMHistory
 	end
 
 	def run_multi_user_questions
-		unless aw_config['Multi User Quesions'].nil?
+		unless aw_config['Multi User Questions'].nil?
 			aw_config['Multi User Questions'].each do |user_q|
 				puts user_q
 				question_asker.run(user_q).each do |name, data|

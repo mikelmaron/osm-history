@@ -7,7 +7,7 @@ class OSMTMTagsImport
 	  attr_reader :base_url
 
 	  def initialize()
-	      @base_url = "http://0.0.0.0:6543/projects.json"
+	      @base_url = "http://tasks.hotosm.org/projects.json?sort_by=priority&direction=asc&search=nepal"
 	  end
 
     def hit_api

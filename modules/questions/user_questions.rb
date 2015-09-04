@@ -2,7 +2,7 @@ module Questions # :nodoc: all
 
 	module Users
 
-		def user_time_frame(time, args={})
+		def user_time_frame(time='month', args={})
 			begin
 				#The Users editing case: users_editing_per_year
 				unless args.empty?
@@ -31,10 +31,10 @@ module Questions # :nodoc: all
 			aw.all_users_data.each{ |user|
 				user_data.push({
 					"user" => user.user,
-					"nodes" => nodes_x_all.first[:objects].select{|node| node.uid == user.uid && ! node.tags.empty?}.count,
-					"ways" => ways_x_all.first[:objects].select{|way| way.uid == user.uid}.count,
-					"relations" => relations_x_all.first[:objects].select{|relation| relation.uid == user.uid}.count,
-					"changesets" => changesets_x_all.first[:objects].select{|changeset| changeset.uid == user.uid}.count,
+					"nodes" => nodes_x_all(constraints: {'uid' => user.uid}).first[:objects].select{ |node| !node.tags.empty?}.count,
+					"ways" => ways_x_all(constraints: {'uid' => user.uid}).first[:objects].count,
+					"relations" => relations_x_all(constraints: {'uid' => user.uid}).first[:objects].count,
+					"changesets" => changesets_x_all(constraints: {'uid' => user.uid}).first[:objects].count,
 				})
 			}
 			user_data
@@ -47,11 +47,11 @@ module Questions # :nodoc: all
 				user_data[ user.user ] = {
 					"type" => "FeatureCollection",
 					"features" =>
-						ways_x_all.first[:objects].select{|way| way.uid == user.uid}.collect{|way|  
-							{ "type" => "Feature", "properties"=> way.tags, "geometry" => way.geometry } 
+						ways_x_all(constraints: {'uid' => user.uid}).first[:objects].collect{|way|
+							{ "type" => "Feature", "properties"=> way.tags, "geometry" => way.geometry }
 						} +
-						nodes_x_all.first[:objects].select{|node| node.uid == user.uid && ! node.tags.empty?}.collect{|node|  
-							{ "type" => "Feature", "properties"=> node.tags, "geometry" => node.geometry } 
+						nodes_x_all(constraints: {'uid' => user.uid}).first[:objects].select{|node| !node.tags.empty?}.collect{|node|
+							{ "type" => "Feature", "properties"=> node.tags, "geometry" => node.geometry }
 						}
 				}
 			}
@@ -65,7 +65,11 @@ module Questions # :nodoc: all
 			when :all_time
 				changesets_per_unit = aw.changesets_x_all.first[:objects].group_by{|changeset| changeset.user}.sort_by{|k,v| v.length}.reverse
 			when :month
-				changesets_per_unit = aw.changesets_x_month.group_by{|changeset| changeset.created_at.to_i / 100000}
+				changesets_per_unit = aw.changesets_x_month.group_by{ |changeset|
+					if defined? changeset.created_at
+						changeset.created_at.to_i / 100000
+					end
+				}
 			end
 			changesets_per_unit.first(args[:limit])
 		end
@@ -83,11 +87,11 @@ module Questions # :nodoc: all
 		end
 
 		def user_list
-			aw.all_contributors_with_count
+			all_contributors_with_count
 		end
 
 		def user_list_with_geometry
-			aw.all_contributors_with_geometry
+			all_contributors_with_geometry
 		end
 	end
 end

@@ -40,6 +40,7 @@ class NodeWaysImport
     new_changeset_ids.each_with_index do |changeset_id, index|
       begin
         this_changeset = changeset_download_api.hit_api(changeset_id + "/download")
+
         if this_changeset
           convert_osm_api_to_domain_object_hash this_changeset
           DatabaseConnection.database["changesets"].update({:id => changeset_id}, {"$set" => {:complete => true}})
@@ -66,7 +67,9 @@ class NodeWaysImport
 
   def convert_osm_api_to_domain_object_hash(osm_api_hash)
     [:create, :modify].each do |action|
-      if ! osm_api_hash[:osm_change][action].is_a? Array
+      if ! osm_api_hash[:osm_change][action]
+        next
+      elsif ! osm_api_hash[:osm_change][action].is_a? Array
         features = [ osm_api_hash[:osm_change][action] ]
       else
         features = osm_api_hash[:osm_change][action]

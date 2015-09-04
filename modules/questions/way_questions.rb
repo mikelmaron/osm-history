@@ -34,36 +34,45 @@ module Questions # :nodoc: all
 
       def number_of_ways_per_tag
         ways_per_tag = []
-        tags = aw.changeset_tags.split(" ")
+        tags = aw.changeset_tags
         tags.each do |tag|
             changesets = Changeset_Query.new(analysis_window: aw, constraints: {'comment' => {'$regex' => ".*"+tag+".*"}}).run.first[:objects].map do |changeset|
               changeset.id.to_s
             end
-            ways_per_tag.push({"tag"=> tag, "count"=> Way_Query.new(analysis_window: aw, constraints: {'changeset' => {'$in' => changesets}}).run.first[:objects].length })
+            way_count = Way_Query.new(analysis_window: aw, constraints: {'changeset' => {'$in' => changesets}}).run.first[:objects].length
+            if way_count > 0
+            	ways_per_tag.push({"tag"=> tag, "count"=> way_count })
+            end
         end
         ways_per_tag
       end
 
       def number_of_highways_per_tag
         ways_per_tag = []
-        tags = aw.changeset_tags.split(" ")
+        tags = aw.changeset_tags
         tags.each do |tag|
             changesets = Changeset_Query.new(analysis_window: aw, constraints: {'comment' => {'$regex' => ".*"+tag+".*"}}).run.first[:objects].map do |changeset|
               changeset.id.to_s
             end
-            ways_per_tag.push({"tag"=> tag, "count"=> Way_Query.new(analysis_window: aw, constraints: {'changeset' => {'$in' => changesets}, "tags.highway" => {'$exists' => true} }).run.first[:objects].length })
+            way_count = Way_Query.new(analysis_window: aw, constraints: {'changeset' => {'$in' => changesets}, "tags.highway" => {'$exists' => true} }).run.first[:objects].length
+            if way_count > 0
+              ways_per_tag.push({"tag"=> tag, "count"=> way_count })
+            end
         end
         ways_per_tag
       end
 
       def number_of_buildings_per_tag
         ways_per_tag = []
-        tags = aw.changeset_tags.split(" ")
+        tags = aw.changeset_tags
         tags.each do |tag|
             changesets = Changeset_Query.new(analysis_window: aw, constraints: {'comment' => {'$regex' => ".*"+tag+".*"}}).run.first[:objects].map do |changeset|
               changeset.id.to_s
             end
-            ways_per_tag.push({"tag"=> tag, "count"=> Way_Query.new(analysis_window: aw, constraints: {'changeset' => {'$in' => changesets}, "tags.building" => {'$exists' => true} }).run.first[:objects].length })
+            way_count =  Way_Query.new(analysis_window: aw, constraints: {'changeset' => {'$in' => changesets}, "tags.building" => {'$exists' => true} }).run.first[:objects].length 
+            if way_count > 0
+              ways_per_tag.push({"tag"=> tag, "count"=> way_count })
+            end
         end
         ways_per_tag
       end

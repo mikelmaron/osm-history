@@ -248,10 +248,10 @@ class AnalysisWindow
     all_users_data.sort { |x,y| x.user.downcase <=> y.user.downcase }.each { |user|
 			user_data.push({
 				"user" => user.user,
-				"nodes" => nodes_x_all.first[:objects].select{|node| node.uid == user.uid && ! node.tags.empty?}.count,
-				"ways" => ways_x_all.first[:objects].select{|way| way.uid == user.uid}.count,
-				"relations" => relations_x_all.first[:objects].select{|relation| relation.uid == user.uid}.count,
-				"changesets" => changesets_x_all.first[:objects].select{|changeset| changeset.uid == user.uid}.count,
+	#			"nodes" => nodes_x_all.first[:objects].select{|node| node.uid == user.uid && ! node.tags.empty?}.count,
+	#			"ways" => ways_x_all.first[:objects].select{|way| way.uid == user.uid}.count,
+	#			"relations" => relations_x_all.first[:objects].select{|relation| relation.uid == user.uid}.count,
+	#			"changesets" => changesets_x_all.first[:objects].select{|changeset| changeset.uid == user.uid}.count,
 			})
 		}
 		user_data

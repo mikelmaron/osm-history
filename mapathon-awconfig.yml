@@ -1,0 +1,68 @@
+#
+# This is a sample configuration file for cutting and importing a PBF history file.
+#
+
+#############   User Information     ####################################
+title: 'Mapathon'
+email: 'test_user@osm-history2.com'
+
+#############   Data Import & PBF Cutting Information   ################## 
+#Database Information
+pbf_file: 'osm-test.osm.pbf'
+database: 'mapathon'
+#port: defaults to 27017, but can be over-ridden here
+#host: defaults to localhost, but can be over-ridden here
+
+#Bounding Box: Expecting 4 parameters, as received from most bounding box tools.
+bbox: '-180,90,-90,180' 
+changeset_tags_collection: true
+#changeset_tags: '#logging-roads-drc #logging-roads-car #logging-roads-cog #logging-roads-cmr #logging-roads-gab #logging-roads-gnq'
+
+############    AW Window Information     ################################
+#These strings are parsed by Ruby: YYYY-MM-DD works well
+start_date: '2015-01-01'
+end_date:   '2015-12-31'
+
+############    File Export Information   ################################
+write_directory: 'projects/mapathon'
+
+
+Node Questions:
+ - total_nodes_edited
+ - number_of_new_nodes
+ - number_of_nodes_edited_by_new_mappers
+ - number_of_nodes_edited_by_experienced_mappers
+ - mean_nodes_per_mapper
+ - median_nodes_per_mapper
+ - nodes_x_day
+
+Way Questions:
+  - number_of_ways_per_tag
+  - number_of_buildings_per_tag
+  - number_of_highways_per_tag
+
+Changeset Questions:
+# - total_changesets_created
+# - mean_changesets_per_mapper
+# - median_changesets_per_mapper
+# - number_of_changesets_by_new_mappers
+# - number_of_changesets_by_experienced_mappers
+
+# - average_changeset_area
+# - average_changeset_node_density
+# - median_changeset_node_density 		# This will need a threshold of 'interested sizes'
+# - average overlaps_per_changeset
+ - number_of_changesets_per_tag
+ - changesets_x_hour
+
+User Questions:
+ - new_user_count
+ - experienced_user_count
+ - total_user_count
+ - user_list
+
+Multi User Questions:
+ - user_list_with_geometry
+
+Bbox Questions:
+ - bbox_geojson_geometry
